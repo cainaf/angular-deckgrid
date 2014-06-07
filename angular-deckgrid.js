@@ -216,6 +216,15 @@ angular.module('akoenig.deckgrid').factory('Deckgrid', [
             mql = $window.matchMedia('(orientation: portrait)');
             mql.addListener(self.$$onMediaQueryChange.bind(self));
 
+            var previousClass = this.$$elem.classList.toString();
+            var classWatcher = setTimeout(function(){
+                var actualClass = self.$$elem.classList.toString();
+                if(previousClass !== actualClass) {
+                    self.$$onMediaQueryChange();
+                    previousClass = actualClass;
+                }
+            }, 250);
+
         }
 
         /**
